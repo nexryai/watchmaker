@@ -1,0 +1,4 @@
+bou.ke/monkey v1.0.2 h1:kWcnsrCNUatbxncxR/ThdYqbytgOIArtYWqcQLQzKLI=
+bou.ke/monkey v1.0.2/go.mod h1:OqickVX3tNx6t33n1xvtTtu85YN5s6cKwVug+oHMaIA=
+github.com/tkuchiki/faketime v0.1.1 h1:UZjBlktFAi23wo+jWuHuNoHUpLnB0j/5B62bl5nCPls=
+github.com/tkuchiki/faketime v0.1.1/go.mod h1:RXY/TXAwGGL36IKDjrHFMcjpUrEiyWSEtLhFPw3UWF0=
