@@ -9,6 +9,7 @@ type Timer struct {
 	RunOnTheHour bool
 	Delay        time.Duration
 	Timezone     *time.Location
+	BreakTimes   []BreakTime
 	LastRun      time.Time
 }
 
@@ -41,6 +42,15 @@ func (t *Timer) WaitForNextScheduledTime() {
 			nextTime = nextTime.Add(t.BaseInterval)
 		} else {
 			break
+		}
+	}
+
+	if len(t.BreakTimes) > 0 {
+		for _, bt := range t.BreakTimes {
+			if nextTime.After(bt.From) && nextTime.Before(bt.Until) {
+				// If the next scheduled time is within a break time, wait until the break time is over
+				nextTime = bt.Until.Add(t.Delay)
+			}
 		}
 	}
 

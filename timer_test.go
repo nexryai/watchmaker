@@ -69,3 +69,35 @@ func TestOnTheHourManyTimes(t *testing.T) {
 		time.Sleep(time.Duration(1+rand.Intn(9)) * time.Second)
 	}
 }
+
+func TestBreakTime(t *testing.T) {
+	tz, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	timer := Timer{
+		BaseInterval: 10 * time.Second,
+		RunOnTheHour: false,
+		Timezone:     tz,
+		BreakTimes: []BreakTime{
+			{
+				From:  time.Now().In(tz),
+				Until: time.Now().In(tz).Add(20 * time.Second),
+			},
+		},
+	}
+
+	startedAt := time.Now()
+	timer.WaitForNextScheduledTime()
+	finishedAt := time.Now()
+
+	t.Logf("Started at: " + startedAt.Format("2006-01-02 15:04:05"))
+	t.Logf("Finished at: " + finishedAt.Format("2006-01-02 15:04:05"))
+
+	if finishedAt.Sub(startedAt) < 20*time.Second {
+		t.Errorf("Timer didn't wait for the next scheduled time")
+	} else if finishedAt.Sub(startedAt) > 21*time.Second {
+		t.Errorf("Timer waited too long")
+	}
+}
