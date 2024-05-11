@@ -63,9 +63,9 @@ func testRunOnTheHour(t *testing.T) {
 }
 
 func TestOnTheHourManyTimes(t *testing.T) {
-	for i := 0; i < 3; i++ {
+	for i := 1; i < 20; i++ {
 		testRunOnTheHour(t)
-		// 10-20秒ランダム待機
-		time.Sleep(time.Duration(10+rand.Intn(10)) * time.Second)
+		// 1-10秒ランダム待機
+		time.Sleep(time.Duration(1+rand.Intn(9)) * time.Second)
 	}
 }
